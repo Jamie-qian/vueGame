@@ -88,21 +88,24 @@
 	
 	            // 页面显示
 	            this.puzzles = puzzleArr;
-	            this.puzzles.push('');
+	            this.puzzles.push(''); //push空白字符串用来生成空白的格子
 				
 			},
 			moveFn:function(index){
-				var curNum = this.puzzles[index],
-	                leftNum = this.puzzles[index - 1],
+				//获取点击位置以及上下左右的值
+				var curNum = this.puzzles[index], //当前点击的
+	                leftNum = this.puzzles[index - 1],  
 	                rightNum = this.puzzles[index + 1],
 	                topNum = this.puzzles[index - 4],
-	                bottomNum = this.puzzles[index + 4];
+					bottomNum = this.puzzles[index + 4];
+					
+					
 
-
-	            if (leftNum === '' && index !== 4 && index !== 8 && index !== 12) {
+				//和为空的位置交换数据
+	            if (leftNum === '') {
 	                this.$set(this.puzzles,index - 1, curNum);
 	                this.$set(this.puzzles,index, '');
-	            } else if (rightNum === '' && index !== 3 && index !== 7 && index !== 11) {
+	            } else if (rightNum === '') {
 	                this.$set(this.puzzles,index + 1, curNum);
 	                this.$set(this.puzzles,index, '');
 	            } else if (topNum === '') {
@@ -118,7 +121,8 @@
 			// 校验是否过关
 	        passFn: function() {
 	            if (this.puzzles[15] === '') {
-	                const newPuzzles = this.puzzles.slice(0, 15)
+					const newPuzzles = this.puzzles.slice(0, 15)
+					
 
                 const isPass = newPuzzles.every((e, i) => e === i + 1)
 	
